@@ -27,7 +27,10 @@ SECRET_KEY = 'django-insecure-52vu(o2y_q)o@1gs4l%!=*=nj3$%qt!*!==z5aq0#*=c2)57k^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1 localhost").split(" ")
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "127.0.0.1 localhost shopng-main-d001445.kuberns.cloud"
+).split(" ")
 
 
 # Application definition
