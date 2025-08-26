@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'shopng.wsgi.application'
 if os.environ.get("RENDER"):  # Running on Render
     DATABASES = {
         'default': dj_database_url.config(
-            default="postgresql://shopng_db_user:PyU6uIKXCe83hvusieOGPQnvOg01bdX2@dpg-cvqemq3e5dus73f8n2eg-a.oregon-postgres.render.com/shopng_db",
+            default=os.environ.get("DATABASE_URL"),  # 👈 pull from env var
             conn_max_age=600,
             ssl_require=True
         )
