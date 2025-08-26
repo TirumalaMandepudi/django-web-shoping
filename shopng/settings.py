@@ -27,10 +27,13 @@ SECRET_KEY = 'django-insecure-52vu(o2y_q)o@1gs4l%!=*=nj3$%qt!*!==z5aq0#*=c2)57k^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS",
-    "127.0.0.1 localhost shopng-main-d001445.kuberns.cloud"
-).split(" ")
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "shopng-main-d001445.kuberns.cloud",
+    "django-web-shoping-2.onrender.com",
+    "shopng.onrender.com",  # optional: matches CSRF_TRUSTED_ORIGINS
+]
 
 
 # Application definition
@@ -187,7 +190,8 @@ AUTHENTICATION_BACKENDS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://shopng.onrender.com',
-    'https://www.shopng.onrender.com',  # if applicable
+    'https://www.shopng.onrender.com',
+    'https://django-web-shoping-2.onrender.com', # if applicable
     'http://127.0.0.1:8000',            # optional, for local dev
     'http://localhost:8000'
 ]
