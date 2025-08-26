@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: shopng
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn shopng.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: shopng.settings
+      - key: DATABASE_URL
+        sync: false
+
+    # 👇 Add this line to load your fixtures after each deploy
+    releaseCommand: python manage.py loaddata data.json
