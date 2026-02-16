@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Complete Your Profile - Shopng{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Complete Your Profile</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-center mb-4">Please complete your profile information to continue.</p>
+                
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="text-center mb-4">
+                        <div class="profile-edit-container mx-auto" style="width: 150px; height: 150px;">
+                            <div class="profile-img-placeholder" style="width: 150px; height: 150px; font-size: 3rem;">
+                                {{ user.username.0|upper }}
+                            </div>
+                            <div class="profile-edit-overlay">
+                                <label for="id_profile_photo" class="mb-0">
+                                    <i class="fas fa-camera fa-2x text-white"></i>
+                                </label>
+                            </div>
+                        </div>
+                        {{ form.profile_photo|as_crispy_field }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.date_of_birth|as_crispy_field }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.phone_number|as_crispy_field }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.address|as_crispy_field }}
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Save Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hide the file input and show custom UI
+        const fileInput = document.getElementById('id_profile_photo');
+        if (fileInput) {
+            fileInput.style.display = 'none';
+            
+            // Preview selected image
+            fileInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const container = document.querySelector('.profile-edit-container');
+                        
+                        // Remove placeholder if exists
+                        const placeholder = container.querySelector('.profile-img-placeholder');
+                        if (placeholder) {
+                            placeholder.remove();
+                        }
+                        
+                        // Check if img already exists
+                        let img = container.querySelector('img');
+                        if (!img) {
+                            img = document.createElement('img');
+                            img.className = 'profile-img';
+                            img.style.width = '150px';
+                            img.style.height = '150px';
+                            container.prepend(img);
+                        }
+                        
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
